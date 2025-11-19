@@ -10,7 +10,7 @@ The following aliases have been added to `~/.zshrc`:
 
 ```bash
 # Maat - Categorical Observability (𓐙𓌗𓂣𓏏𓁦)
-alias maat='npm run observe /Users/manu/Documents/LUXOR'
+alias maat='cd /Users/manu/Documents/LUXOR/scripts/observe && npm run observe /Users/manu/Documents/LUXOR'
 alias maat-test='cd /Users/manu/Documents/LUXOR/scripts/observe && npm test'
 alias maat-build='cd /Users/manu/Documents/LUXOR/scripts/observe && npm run build'
 alias maat-cov='cd /Users/manu/Documents/LUXOR/scripts/observe && npm run test:coverage'
@@ -100,27 +100,26 @@ $ maat
 📊 Observation Complete
 
 Git Repositories:
-  Total: 32
-  Clean: 13 (40.6%)
-  Dirty: 19
+  Total: 33
+  Clean: 17 (51.5%)
+  Dirty: 16
   Unpushed: 3
-  Total Commits: 2382
+  Total Commits: 2405
 
 Patterns Detected:
-  ⚠  HIGH_DIRTY_RATIO: 19 of 32 repositories uncommitted
-     Recommendation: Batch commit workflow needed
+  ✓ No significant patterns detected
 
 Anomalies Detected:
   ✓ No anomalies detected
 
 📄 Reports Generated:
-  JSON: /Users/manu/Documents/LUXOR/logs/observation-2025-11-19T05-29-30-080Z.json
-  Markdown: /Users/manu/Documents/LUXOR/logs/observation-2025-11-19T05-29-30-080Z.md
+  JSON: /Users/manu/Documents/LUXOR/logs/observation-2025-11-19T07-00-44-957Z.json
+  Markdown: /Users/manu/Documents/LUXOR/logs/observation-2025-11-19T07-00-44-957Z.md
 
 Comonad Operations Demonstrated:
-  extract(): Health Score = 40.6%
-  extend(calculateTrend): CRITICAL
-  extend(calculateVelocity): 2382 commits
+  extract(): Health Score = 51.5%
+  extend(calculateTrend): NEEDS_CLEANUP
+  extend(calculateVelocity): 2405 commits
 
 ✅ Pure functional observation complete!
 ```
