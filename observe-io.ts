@@ -15,7 +15,6 @@
  */
 
 import * as TE from 'fp-ts/TaskEither';
-import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
 import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/function';
@@ -139,13 +138,35 @@ export const getGitRepoInfo = (
   const getInfo = async (): Promise<GitRepository> => {
     const name = path.basename(repoPath);
 
-    // Get branch
-    const branchResult = await io.exec('git rev-parse --abbrev-ref HEAD', repoPath);
-    const branch = branchResult.stdout.trim();
+    // Get branch (handle repos with no commits)
+    let branch = 'main';
+    try {
+      const branchResult = await io.exec('git rev-parse --abbrev-ref HEAD', repoPath);
+      branch = branchResult.stdout.trim();
+    } catch {
+      // No HEAD yet - try to get default branch name
+      try {
+        const branchResult = await io.exec('git symbolic-ref --short HEAD', repoPath);
+        branch = branchResult.stdout.trim() || 'main';
+      } catch {
+        branch = 'main';
+      }
+    }
 
-    // Check if clean
-    const statusResult = await io.exec('git diff-index --quiet HEAD --', repoPath);
-    const isClean = statusResult.stderr === '';
+    // Check if clean (git diff-index exits with 1 if dirty, so we need try-catch)
+    let isClean = true;
+    try {
+      await io.exec('git diff-index --quiet HEAD --', repoPath);
+    } catch {
+      // Command failed = repository has changes OR no HEAD
+      // Check if there are any files staged/unstaged
+      try {
+        const statusResult = await io.exec('git status --porcelain', repoPath);
+        isClean = statusResult.stdout.trim() === '';
+      } catch {
+        isClean = true; // Assume clean if we can't check
+      }
+    }
 
     // Get commits ahead
     let commitsAhead = 0;
@@ -163,8 +184,14 @@ export const getGitRepoInfo = (
     }
 
     // Get total commits
-    const commitsResult = await io.exec('git rev-list --count HEAD', repoPath);
-    const totalCommits = parseInt(commitsResult.stdout.trim(), 10) || 0;
+    let totalCommits = 0;
+    try {
+      const commitsResult = await io.exec('git rev-list --count HEAD', repoPath);
+      totalCommits = parseInt(commitsResult.stdout.trim(), 10) || 0;
+    } catch {
+      // No commits yet
+      totalCommits = 0;
+    }
 
     // Get last commit time
     let lastCommitTime: O.Option<Date> = O.none;
@@ -211,7 +238,7 @@ export const scanGitRepositories = (
     findGitRepositories(io, config.workspaceRoot, config.maxDepth),
     TE.chain(repoPaths =>
       pipe(
-        repoPaths,
+        Array.from(repoPaths),
         A.map(repoPath => getGitRepoInfo(io, repoPath)),
         TE.sequenceArray
       )
@@ -321,7 +348,7 @@ export const generateMarkdownReport = (
   repos: ReadonlyArray<GitRepository>
 ): string => {
   const { context, patterns, anomalies } = observation;
-  const { git, workspace } = context.current;
+  const { git } = context.current;
 
   let report = `# Categorical Observability Report
 **Generated**: ${context.context.timestamp.toISOString()}

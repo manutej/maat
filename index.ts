@@ -107,7 +107,7 @@ const main = (
     ),
 
     // Step 5: Display results (Impure I/O)
-    TE.map(({ observation, repos }) => {
+    TE.map(({ observation }) => {
       console.log('\n╔═══════════════════════════════════════════════════════════╗');
       console.log('║  CATEGORICAL OBSERVABILITY - Pure Functional Core      ║');
       console.log('╚═══════════════════════════════════════════════════════════╝\n');
