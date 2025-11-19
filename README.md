@@ -10,6 +10,17 @@
 
 ---
 
+## 📚 Documentation
+
+- **[QUICK-START.md](./QUICK-START.md)** - ⚡ Get productive in <1 minute
+- **[CLI-ALIASES.md](./CLI-ALIASES.md)** - 🎯 Shell aliases and usage examples
+- **[DEPLOYMENT-SUMMARY.md](./DEPLOYMENT-SUMMARY.md)** - 📦 Complete deployment record
+- **[README.md](./README.md)** - 📖 This file (architecture, theory, API)
+
+**First time here?** Start with [QUICK-START.md](./QUICK-START.md) → then come back for the deep dive.
+
+---
+
 ## 🏛️ Overview
 
 **Maat** (Egyptian: 𓐙𓌗𓂣𓏏𓁦, *Maʽat*) was the goddess who personified truth, balance, and cosmic order. Just as Maat weighed hearts against her feather to determine truth, this tool weighs your workspace health against ideal states to reveal the truth of your codebase.
