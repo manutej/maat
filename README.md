@@ -2,7 +2,7 @@
 
 > *Named after the Egyptian goddess of truth, cosmic order, and observability*
 
-**Pure Functional Workspace Observability with Categorical Foundations**
+**Git workspace health monitoring with mathematical guarantees**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)](https://www.typescriptlang.org/)
@@ -10,35 +10,229 @@
 
 ---
 
-## 📚 Documentation
+## What is Maat?
+
+**Maat is a workspace observability tool that scans all your git repositories and tells you the truth about your codebase health.**
+
+Just as the Egyptian goddess Maat weighed hearts against her feather to reveal truth, this tool weighs your workspace against ideal states to show you exactly where you stand.
+
+### The Problem It Solves
+
+When you're working on multiple projects, it's hard to answer simple questions:
+- **How many repositories have uncommitted changes?**
+- **Which repos have unpushed commits?**
+- **What's my overall workspace health?**
+- **Are there any concerning patterns in my workflow?**
+
+Maat answers these questions in seconds and generates comprehensive reports.
+
+---
+
+## Quick Start
+
+⚡ **New here?** Check out [QUICK-START.md](./QUICK-START.md) for instant setup.
+
+### Installation
+
+```bash
+cd /path/to/maat
+npm install
+npm run build
+```
+
+### Usage
+
+```bash
+# Basic usage - scan current directory
+npm run observe
+
+# Scan specific workspace
+npm run observe /path/to/your/workspace
+
+# With shell alias (see CLI-ALIASES.md)
+maat
+```
+
+### What You Get
+
+**Instant health metrics:**
+```
+Git Repositories:
+  Total: 33
+  Clean: 17 (51.5%)
+  Dirty: 16
+  Unpushed: 3
+  Total Commits: 2405
+```
+
+**Pattern detection:**
+- HIGH_DIRTY_RATIO - More than 50% of repos have uncommitted changes
+- HIGH_UNPUSHED_COUNT - Many repos with commits not pushed to remote
+
+**Generated reports in `/logs/`:**
+- `observation-<timestamp>.json` - Machine-readable metrics
+- `observation-<timestamp>.md` - Human-readable report with recommendations
+
+---
+
+## What Maat Can Do Right Now (v2.0.0)
+
+### Core Features
+
+✅ **Multi-repository scanning**
+- Recursively scans your workspace for git repositories
+- Configurable depth and exclusion patterns
+- Works with any directory structure
+
+✅ **Health metrics**
+- Overall workspace health score (0-100%)
+- Clean vs dirty repository counts
+- Unpushed commit tracking
+- Total commit counts across all repos
+- Per-repository branch and status information
+
+✅ **Pattern detection**
+- Identifies HIGH_DIRTY_RATIO when too many repos are dirty
+- Detects HIGH_UNPUSHED_COUNT when many commits aren't pushed
+- Provides actionable recommendations
+
+✅ **Anomaly detection**
+- Statistical deviation analysis
+- Severity classification (LOW/MEDIUM/HIGH)
+- Contextualized recommendations
+
+✅ **Report generation**
+- JSON reports for machine processing
+- Markdown reports for human reading
+- Timestamped for historical tracking
+- Full context and metrics included
+
+✅ **Pure functional architecture**
+- 100% testable code with no mocks needed
+- Deterministic - same inputs always produce same outputs
+- Type-safe with full TypeScript support
+- Path-agnostic configuration (works anywhere)
+
+---
+
+## What Maat Is Intended To Do
+
+### The Vision
+
+Maat is designed to become a **comprehensive workspace observability platform** that helps developers and teams understand their development ecosystem at a glance.
+
+The ultimate goal is to answer questions like:
+- "How healthy is my workspace right now?"
+- "What patterns emerge in my development workflow?"
+- "Are there any anomalies I should address?"
+- "How has my workspace evolved over time?"
+- "What's the state of my project across distributed machines?"
+
+### Philosophical Foundation
+
+Maat is built on **category theory** and **pure functional programming** principles, which means:
+- **Mathematical correctness** - All operations follow verified mathematical laws
+- **Reliability** - Pure functions guarantee consistent behavior
+- **Testability** - Every component can be tested in isolation
+- **Composability** - Features can be combined in powerful ways
+
+This isn't just academic - it means Maat is **trustworthy** in a way most tools aren't. When it reports your health score, you can trust the calculation is correct and reproducible.
+
+---
+
+## Roadmap
+
+### v2.1.0 - Enhanced Analysis (Planned)
+
+- [ ] **Property-based testing** with fast-check for even stronger guarantees
+- [ ] **Historical trend analysis** - Track workspace health over time
+- [ ] **Visual dashboard generation** - HTML/web-based reports
+- [ ] **Streaming observations** - Real-time updates as workspace changes
+
+### v3.0.0 - Distributed & Integrated (Future)
+
+- [ ] **Distributed observation** - Monitor workspaces across multiple machines
+- [ ] **Real-time streaming** - WebSocket-based live updates
+- [ ] **CI/CD integration** - Built-in support for GitHub Actions, GitLab CI, etc.
+- [ ] **Performance optimizations** - Parallel scanning for large workspaces
+- [ ] **Linear integration** - Connect workspace health to Linear issues
+- [ ] **CC2.0 integration** - Full Claude Code 2.0 OBSERVE protocol support
+
+### Future Possibilities
+
+- 📊 **Team dashboards** - Aggregate metrics across team members
+- 📈 **Productivity insights** - Understand commit patterns and velocity
+- 🔔 **Alerting system** - Notifications when health drops below thresholds
+- 🤖 **AI recommendations** - Smart suggestions based on patterns
+- 📦 **Plugin system** - Extensible architecture for custom analyzers
+
+---
+
+## Documentation
 
 - **[QUICK-START.md](./QUICK-START.md)** - ⚡ Get productive in <1 minute
 - **[CLI-ALIASES.md](./CLI-ALIASES.md)** - 🎯 Shell aliases and usage examples
 - **[DEPLOYMENT-SUMMARY.md](./DEPLOYMENT-SUMMARY.md)** - 📦 Complete deployment record
-- **[README.md](./README.md)** - 📖 This file (architecture, theory, API)
-
-**First time here?** Start with [QUICK-START.md](./QUICK-START.md) → then come back for the deep dive.
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - 🤝 How to contribute
+- **[CHANGELOG.md](./CHANGELOG.md)** - 📋 Version history and changes
 
 ---
 
-## 🏛️ Overview
+## Example: A Day with Maat
 
-**Maat** (Egyptian: 𓐙𓌗𓂣𓏏𓁦, *Maʽat*) was the goddess who personified truth, balance, and cosmic order. Just as Maat weighed hearts against her feather to determine truth, this tool weighs your workspace health against ideal states to reveal the truth of your codebase.
+### Morning Check
+```bash
+$ maat
+Git Repositories:
+  Total: 33
+  Clean: 28 (84.8%)
+  Dirty: 5
+  Unpushed: 2
 
-This is a **pure functional observability system** built on categorical foundations that
+  extend(calculateTrend): HEALTHY
+```
 
-- ✅ **Separates concerns**: Pure core (logic) + Impure shell (I/O)
-- ✅ **Path agnostic**: Configuration-driven, no hardcoded paths
-- ✅ **No side effects** in core functions
-- ✅ **Fully testable**: Pure functions need no mocks
-- ✅ **Categorical foundations**: Comonad laws verified
-- ✅ **Type-safe**: Leverages fp-ts for functional composition
+**Interpretation:** You started the day with a clean workspace. Only 5 repos have uncommitted work (probably from yesterday). Good to go!
+
+### After Lunch
+```bash
+$ maat
+Git Repositories:
+  Total: 33
+  Clean: 20 (60.6%)
+  Dirty: 13
+  Unpushed: 5
+
+Patterns Detected:
+  ⚠ HIGH_DIRTY_RATIO: 13 of 33 repositories uncommitted
+     Recommendation: Batch commit workflow needed
+
+  extend(calculateTrend): NEEDS_CLEANUP
+```
+
+**Interpretation:** You've been productive! Working across multiple projects. Time to review and commit your changes.
+
+### End of Day
+```bash
+$ maat
+Git Repositories:
+  Total: 33
+  Clean: 31 (93.9%)
+  Dirty: 2
+  Unpushed: 0
+
+  extend(calculateTrend): HEALTHY
+```
+
+**Interpretation:** Nice work! Everything's committed and pushed. You can end the day with confidence.
 
 ---
 
 ## Architecture
 
-### Functional Core, Imperative Shell
+### High-Level Design
+
+Maat follows the **Functional Core, Imperative Shell** pattern:
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -61,153 +255,30 @@ This is a **pure functional observability system** built on categorical foundati
 │  │  • All business logic                     │  │
 │  └───────────────────────────────────────────┘  │
 │                       ↕                          │
-│  ┌───────────────────────────────────────────┐  │
 │  │           index.ts (Composition)          │  │
 │  │  Wires pure core + impure shell together  │  │
 │  └───────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────┘
 ```
 
-### File Structure
+**Why this matters:**
+- The **pure core** contains all business logic and is 100% testable without mocks
+- The **impure shell** handles all I/O operations and is dependency-injectable
+- They're **completely separated**, making the codebase easy to understand and maintain
 
-```
-scripts/observe/
-├── observe-core.ts         # Pure logic (0 side effects)
-├── observe-io.ts           # Impure I/O (all side effects)
-├── index.ts                # Main entry point (composition)
-├── observe-core.test.ts    # Pure function tests
-├── package.json            # Dependencies
-├── tsconfig.json           # TypeScript config
-└── README.md               # This file
-```
+### Key Principles
 
----
-
-## Key Features
-
-### 1. Pure Functional Core
-
-**All business logic is pure**:
-- Same inputs → same outputs (deterministic)
-- No side effects (no I/O, no mutation)
-- Referentially transparent
-- Trivially testable
-
-```typescript
-// Pure function - no side effects
-export const calculateHealthScore = (
-  clean: number,
-  total: number
-): number => {
-  if (total === 0) return 0;
-  return (clean / total) * 100;
-};
-
-// Test without mocks!
-expect(calculateHealthScore(7, 10)).toBe(70);
-```
-
-### 2. Path Agnostic
-
-**No hardcoded paths** - everything is configurable:
-
-```typescript
-interface ObservationConfig {
-  readonly workspaceRoot: string;      // Inject any path
-  readonly cc2Root: Option<string>;    // Optional CC2.0 root
-  readonly linearTeam: Option<string>; // Optional Linear team
-  readonly maxDepth: number;           // Configurable scan depth
-  readonly excludePatterns: ReadonlyArray<string>;
-}
-```
-
-### 3. Categorical Foundations
-
-**Comonad Laws Verified**:
-
-```typescript
-// Law 1: extract ∘ duplicate = id
-const duplicated = duplicate(obs);
-expect(extract(duplicated)).toEqual(obs);
-
-// Law 2: fmap extract ∘ duplicate = id
-const mapped = map(extract)(duplicate(obs));
-expect(mapped.focus).toEqual(obs.focus);
-
-// Law 3: Associativity
-const dup1 = duplicate(duplicate(obs));
-const dup2 = map(duplicate)(duplicate(obs));
-expect(dup1.focus.focus).toEqual(dup2.focus.focus);
-```
-
-### 4. Composable Effects
-
-**Uses fp-ts TaskEither** for composable async operations:
-
-```typescript
-const main = pipe(
-  // Step 1: Scan repos (I/O)
-  scanGitRepositories(io, config),
-
-  // Step 2: Get metrics (I/O)
-  TE.bindTo('repos'),
-  TE.bind('metrics', () => getWorkspaceMetrics(io, config)),
-
-  // Step 3: Observe (Pure!)
-  TE.chainW(({ repos, metrics }) =>
-    TE.fromEither(observe(config, repos, metrics))
-  ),
-
-  // Step 4: Write reports (I/O)
-  TE.chainFirst(({ obs }) => writeReports(io, obs))
-);
-```
-
-### 5. Dependency Injection
-
-**I/O operations are injectable** for testing:
-
-```typescript
-interface IODeps {
-  readonly exec: (cmd: string, cwd: string) => Promise<{...}>;
-  readonly readdir: (path: string) => Promise<string[]>;
-  readonly stat: (path: string) => Promise<{...}>;
-  readonly writeFile: (path: string, data: string) => Promise<void>;
-}
-
-// Production
-const productionIO: IODeps = { ... };
-
-// Testing
-const mockIO: IODeps = { ... };
-```
+1. **Pure Functions** - No side effects in core logic
+2. **Type Safety** - Full TypeScript with strict mode enabled
+3. **Configuration-Driven** - No hardcoded paths, works anywhere
+4. **Testable** - Pure functions need no mocks
+5. **Composable** - Functions combine using algebraic structures
 
 ---
 
-## Usage
+## Programmatic Usage
 
-### Installation
-
-```bash
-cd /Users/manu/Documents/LUXOR/scripts/observe
-npm install
-npm run build
-```
-
-### CLI Usage
-
-```bash
-# Observe current directory
-npm run observe
-
-# Observe specific path
-npm run observe /path/to/workspace
-
-# With CC2.0 and Linear
-npm run observe /workspace /path/to/cc2.0 my-linear-team
-```
-
-### Programmatic Usage
+Maat isn't just a CLI tool - you can use it as a library in your TypeScript projects:
 
 ```typescript
 import { Observe } from './observe-core';
@@ -217,10 +288,10 @@ import * as TE from 'fp-ts/TaskEither';
 
 const config = {
   workspaceRoot: '/my/workspace',
-  cc2Root: O.none,
-  linearTeam: O.none,
+  cc2Root: { _tag: 'None' },
+  linearTeam: { _tag: 'None' },
   maxDepth: 4,
-  excludePatterns: ['node_modules'],
+  excludePatterns: ['node_modules', '.git'],
 };
 
 // Run observation
@@ -248,9 +319,9 @@ npm run test:watch       # Watch mode
 npm run test:coverage    # With coverage
 ```
 
-### Test Pure Functions
+### Pure Functions = Easy Testing
 
-Pure functions are trivially testable - no mocks needed!
+Because the core logic is pure, testing requires no mocks:
 
 ```typescript
 describe('calculateHealthScore', () => {
@@ -263,33 +334,92 @@ describe('calculateHealthScore', () => {
 });
 ```
 
-### Test Comonad Laws
+### Mathematical Guarantees
 
-```typescript
-it('should satisfy extract ∘ duplicate = id', () => {
-  const obs = createTestObservation();
-  const result = extract(duplicate(obs));
-  expect(result).toEqual(obs);
-});
-```
+Maat verifies category theory laws in tests:
 
-### Test I/O with Mocks
+✅ **Functor Laws**
+- Identity: `map(id) = id`
+- Composition: `map(g ∘ f) = map(g) ∘ map(f)`
 
-```typescript
-const mockIO: IODeps = {
-  exec: jest.fn().mockResolvedValue({ stdout: 'main', stderr: '' }),
-  readdir: jest.fn().mockResolvedValue(['repo1', 'repo2']),
-  // ...
-};
+✅ **Comonad Laws**
+- Left identity: `extract ∘ duplicate = id`
+- Right identity: `fmap extract ∘ duplicate = id`
+- Associativity: `duplicate ∘ duplicate = fmap duplicate ∘ duplicate`
 
-const result = await scanGitRepositories(mockIO, config)();
-```
+This isn't just academic - these laws ensure the tool behaves predictably and reliably.
 
 ---
 
-## Benefits of This Architecture
+## Why the Name "Maat"?
 
-### 1. **Testability**
+**Maat** (Egyptian: 𓐙𓌗𓂣𓏏𓁦, *Maʽat*) was the ancient Egyptian goddess who personified:
+- **Truth** - Revealing what is, not what we wish to see
+- **Cosmic Order** - Maintaining balance and harmony
+- **Justice** - Weighing hearts against her feather
+
+In Egyptian mythology, Maat would weigh the heart of the deceased against her feather of truth. If the heart was lighter than the feather (free from sin), the soul could enter the afterlife.
+
+**Similarly, Maat the tool:**
+- **Reveals truth** about your workspace health
+- **Maintains order** by detecting patterns and anomalies
+- **Weighs your repositories** against ideal states to determine health
+
+The feather metaphor is particularly apt - a healthy codebase should be "light" (clean, organized, pushed), not heavy with uncommitted changes and chaos.
+
+---
+
+## Category Theory Deep Dive
+
+> **Note:** This section is for those interested in the mathematical foundations. You don't need to understand this to use Maat!
+
+### Observation as a Comonad
+
+Maat's core data structure is a **comonad**:
+
+```typescript
+interface Observation<A> {
+  readonly focus: A;              // The "value" at current position
+  readonly context: SystemState;  // Full contextual information
+  readonly patterns: Pattern[];
+  readonly anomalies: Anomaly[];
+}
+```
+
+**Comonad Operations:**
+
+1. **extract**: Get focused value
+   ```typescript
+   extract(obs) → obs.focus
+   ```
+
+2. **duplicate**: Create meta-observation
+   ```typescript
+   duplicate(obs) → Observation<Observation<A>>
+   ```
+
+3. **extend**: Context-aware transformation
+   ```typescript
+   extend(f)(obs) → Observation<B>
+   // where f: Observation<A> → B
+   ```
+
+**Why Comonad?**
+
+Comonads are perfect for **contextual computation**. Unlike monads (which wrap values in context), comonads let you **compute using context**.
+
+For observability, this means:
+- You can always **extract** the current value (health score)
+- You can **extend** computations that need full context (trend analysis needs history)
+- You can **duplicate** to create nested observations (meta-analysis)
+
+This structure ensures all operations are **composable** and **mathematically sound**.
+
+---
+
+## Benefits Over Traditional Approaches
+
+### 1. Testability
 
 **Before** (Imperative):
 ```bash
@@ -311,26 +441,7 @@ test('observe', () => {
 });
 ```
 
-### 2. **Composability**
-
-**Before**:
-```bash
-# Hard to compose bash functions
-function1 && function2 && function3  # Sequential only
-```
-
-**After**:
-```typescript
-// Compose with algebraic structures
-pipe(
-  step1,
-  TE.chain(step2),
-  TE.map(step3),
-  TE.mapLeft(handleError)
-);
-```
-
-### 3. **Type Safety**
+### 2. Type Safety
 
 **Before**:
 ```bash
@@ -346,146 +457,32 @@ const result: E.Either<ObservationError, Observation<SystemState>>
 // Type error if you use it wrong!
 ```
 
-### 4. **Path Flexibility**
+### 3. Reliability
 
 **Before**:
-```bash
-# Hardcoded paths
-LUXOR_ROOT="/Users/manu/Documents/LUXOR"  # Not reusable!
-```
+- Side effects anywhere
+- Hard to reason about
+- Silent failures possible
+- Not reproducible
 
 **After**:
-```typescript
-// Configuration-driven
-const config: ObservationConfig = {
-  workspaceRoot: process.env.WORKSPACE || process.cwd(),
-  // Works anywhere!
-};
-```
-
-### 5. **No Side Effects in Core**
-
-**Before**:
-```bash
-# Side effects mixed with logic
-calculate_health() {
-  git status > /tmp/status  # I/O!
-  health=$(cat /tmp/status | wc -l)  # More I/O!
-  echo $health  # Yet more I/O!
-}
-```
-
-**After**:
-```typescript
-// Pure calculation
-const calculateHealthScore = (clean: number, total: number): number => {
-  return (clean / total) * 100;
-  // No I/O, no mutation, just math!
-};
-```
+- Pure functions guarantee same output for same input
+- Easy to reason about
+- All errors typed and explicit
+- Completely reproducible
 
 ---
 
-## Categorical Theory
+## Contributing
 
-### Observation as a Comonad
+We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
-```typescript
-interface Observation<A> {
-  readonly focus: A;              // The "value" at current position
-  readonly context: SystemState;  // Full contextual information
-  readonly patterns: Pattern[];
-  readonly anomalies: Anomaly[];
-}
-```
-
-**Comonad Operations**:
-
-1. **extract**: Get focused value
-   ```typescript
-   extract(obs) → obs.focus
-   ```
-
-2. **duplicate**: Create meta-observation
-   ```typescript
-   duplicate(obs) → Observation<Observation<A>>
-   ```
-
-3. **extend**: Context-aware transformation
-   ```typescript
-   extend(f)(obs) → Observation<B>
-   // where f: Observation<A> → B
-   ```
-
-**Why Comonad?**
-
-- **Functor**: Transform observations while preserving structure
-- **Comonad**: Access full context for any transformation
-- **Dual of Monad**: Instead of wrapping values (monad), unwrap context (comonad)
-
----
-
-## Mathematical Guarantees
-
-### Verified Laws
-
-✅ **Functor Laws**:
-- Identity: `map(id) = id`
-- Composition: `map(g ∘ f) = map(g) ∘ map(f)`
-
-✅ **Comonad Laws**:
-- Left identity: `extract ∘ duplicate = id`
-- Right identity: `fmap extract ∘ duplicate = id`
-- Associativity: `duplicate ∘ duplicate = fmap duplicate ∘ duplicate`
-
-✅ **Purity**:
-- Deterministic: Same inputs always produce same outputs
-- No side effects: Functions don't modify external state
-- Referential transparency: Can replace function calls with their values
-
----
-
-## Migration Guide
-
-### From Bash Script to TypeScript
-
-**Old (Bash)**:
-```bash
-./luxor-observe-cc2.sh
-```
-
-**New (TypeScript)**:
-```bash
-cd scripts/observe
-npm run observe
-```
-
-### Programmatic Integration
-
-```typescript
-// In your TypeScript code
-import { main } from './scripts/observe';
-
-const config = { workspaceRoot: '/my/workspace', ... };
-const result = await main(config)();
-
-if (E.isRight(result)) {
-  console.log('Success!');
-} else {
-  console.error('Failed:', result.left);
-}
-```
-
----
-
-## Future Enhancements
-
-- [ ] Property-based testing with fast-check
-- [ ] Streaming observations (Observable pattern)
-- [ ] Historical trend analysis
-- [ ] Visual dashboard generation
-- [ ] Integration with CI/CD pipelines
-- [ ] Distributed observation (multi-machine)
+**Areas where we'd love help:**
+- Historical trend analysis implementation
+- Visual dashboard generation
+- Performance optimizations for large workspaces
+- Additional pattern detectors
+- Documentation improvements
 
 ---
 
@@ -505,5 +502,18 @@ if (E.isRight(result)) {
 
 ---
 
-**Status**: ✅ **PRODUCTION READY**
+## License
+
+MIT - See [LICENSE](./LICENSE) for details.
+
+---
+
+## Status
+
+**Current Version:** v2.0.0
+**Status:** ✅ Production Ready
+**Last Updated:** 2025-11-19
+
 *Pure, testable, composable, categorical observability*
+
+**Truth, Justice, and Cosmic Order** 𓐙𓌗𓂣𓏏𓁦
